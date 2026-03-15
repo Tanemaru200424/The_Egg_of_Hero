@@ -8,8 +8,3 @@ public interface IDamageable
     public void Damage(int value);//value分ダメージを受ける
     public void Death();//オブジェクト破壊またはイベント発生
 }
-
-public interface Initializeable
-{ 
-    public void Initialize(); 
-}
