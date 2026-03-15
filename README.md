@@ -55,6 +55,8 @@ Assets/
 * 特殊攻撃：→キー / Eastボタン
 * カウンター：↓キー / Southボタン
 * 一時停止：Spaceキー / Startボタン
+### 強制終了について
+Escキーを押すことによって強制的にアプリを終了できます（WebGL版では機能しません）。
 
 ## UnityRoomへのアクセス
 [こちら](https://unityroom.com/games/the_egg_of_hero)からUnityRoomで公開されているものを遊ぶことができます。
