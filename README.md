@@ -24,24 +24,23 @@ C#
 * 2Dベルトアクションは2Dでありながら奥行きがあるため、見た目通りでない当たり判定になってしまいます。そのため、敵の攻撃予測範囲と攻撃範囲を可視化することでプレイヤーが状況判断できるようにしました。敵の子オブジェクトに攻撃予測範囲、攻撃オブジェクトの子オブジェクトに攻撃範囲のイラストを持たせ、それらの表示切替によって実装しました。
 * 行動価値関数によって、敵ごとに特徴的な行動をするようにしました。敵に移動方向切り替えと攻撃にクールタイムを設定しました。これらクールタイム待機後、移動方向切り替えと攻撃開始を行います。移動方向の優先度は敵によって固定です。攻撃選択の優先度はプレイヤーと敵の位置関係に依存します。
 
-## スクリプトの位置について
+## プロジェクト構成
+以下は一部省略したものです。
 ```
-Assets/  
-└ Scene/ - Interfaces.cs（IDaageableの定義のみです。元はゲーム中の様々なインターフェースを格納する予定でした。）
-  |      - GamaeManager.cs（Escによるゲームの強制終了、音量データの保持、アクションシーンへの敵データの保持を行います。）
-  ├ ACTION/
-  | ├ ACTION_GameObject/ - DepthExpression.cs（キャラクターのイラストレイヤー制御をします。）  
-  | | └ ACTION_GameObject_Charactor/  
-  | |   ├ Enemy/ - Enemy_AttackPower.cs（敵の攻撃判定スクリプトです。）  
-  | |   | └ Enemy_Kinds/敵の名前/敵の名前_Script/（各敵の制御スクリプトをまとめています。）  
-  | |   └ Player/Player_Script/（プレイヤーの制御スクリプトをまとめています。）
-  | └ ACTION_Script/ - ACTION_Script_Input_Pause.cs（アクションシーンの一時停止、再開を制御します。）
-  |   |              - ACTION_Manager.cs（アクションシーンの流れとプレイヤーの入力を制御します。）
-  |   ├ ACTION_Script_Button/（アクションシーン中のボタンの機能を実装しています。）
-  |   └ ACTION_Script_Image/（アクション開始時のステージ背景の設定を行います。）
-  └ TITLE/ - TITLE_Manager.cs（タイトルシーンの流れを制御します。）
-    ├ TITLE_Script_Button/（タイトルシーン中のボタンの機能を実装しています。）
-    └ TITLE_Script_Text/（音量設定反映時のテキスト変更を実装しています。）
+Assets/
+├ Scene/
+│ ├ Interfaces.cs           # IDamageable等、共通仕様の定義
+│ └ GameManager.cs          # ゲーム全体の進行管理、音量・敵データの保持
+├ ACTION/                   # アクションシーンの中核ロジック
+│ ├ ACTION_GameObject/
+│ │ ├ DepthExpression.cs    # Y座標によるスプライトのレイヤー順制御
+│ │ └ ACTION_GameObject_Charactor/
+│ │   ├ Enemy/              # 敵AI（行動価値関数）および各敵の個別制御
+│ │   └ Player/             # プレイヤーのアクション（4種）および移動制御
+│ └ ACTION_Script/
+│   ├ ACTION_Manager.cs     # シーン進行および入力情報の仲介
+│   └ ACTION_Script_Input_Pause.cs # TimeScaleを用いた一時停止・再開制御
+└ TITLE/                    # タイトルシーン関連（音量設定等）
 ```
 
 ## 操作方法（PC / ゲームパッド）
